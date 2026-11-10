@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STAR scenarios – interview prep</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1f;--mute:#6b6b70;--line:#e2e2de;--acc:#0019a5;--accbg:#e9ecfb;--hi:#fff6d6;--hiink:#5c4600;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141416;--card:#1e1e21;--ink:#f0f0f2;--mute:#9a9aa2;--line:#33333a;--acc:#8fa2ff;--accbg:#242a4d;--hi:#3a3216;--hiink:#f3dc8a}}
+:root[data-theme="dark"]{--bg:#141416;--card:#1e1e21;--ink:#f0f0f2;--mute:#9a9aa2;--line:#33333a;--acc:#8fa2ff;--accbg:#242a4d;--hi:#3a3216;--hiink:#f3dc8a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 14px 40px}
+header{padding:16px 0 8px}
+h1{font-size:18px;margin:0}
+.sub{color:var(--mute);font-size:13px;margin-top:2px}
+.finder{margin:10px 0 4px}
+.finder summary{cursor:pointer;font-size:14px;color:var(--acc);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.chipgrp{font-size:12px;color:var(--mute);margin:10px 0 0;text-transform:uppercase;letter-spacing:.04em}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:8px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.act{background:var(--acc);color:var(--bg);border-color:var(--acc);font-weight:600}
+.tab.dim{opacity:.35}
+.tab.match{border-color:var(--acc);box-shadow:0 0 0 2px var(--accbg)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px}
+.panel h2{font-size:19px;margin:0 0 8px;line-height:1.25}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.tag{font-size:12px;background:var(--accbg);color:var(--acc);border-radius:6px;padding:2px 8px}
+.tag.cat{background:transparent;border:1px solid var(--line);color:var(--mute)}
+.open{background:var(--hi);color:var(--hiink);border-radius:10px;padding:12px 14px;margin:12px 0;font-weight:600}
+.open small{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:11px;opacity:.8;margin-bottom:3px}
+.sec{margin-top:14px}
+.sec h3{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);margin:0 0 4px}
+.sec ul{margin:0;padding-left:20px}
+.sec li{margin:3px 0}
+.res h3{color:var(--hiink)}
+.res{border-left:3px solid var(--acc);padding-left:12px}
+.nudge{margin-top:14px;padding:10px 12px;background:var(--hi);color:var(--hiink);border-radius:10px;font-size:14px}
+.rem{margin-top:16px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;font-size:13px;color:var(--mute)}
+.nav{display:flex;justify-content:space-between;margin-top:12px;gap:8px}
+.nav button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;font-size:14px;cursor:pointer}
+.nav button:disabled{opacity:.35}
+</style></head><body>
+<div class="wrap">
+<header><h1>STAR scenarios</h1><div class="sub">Tap a tab to jump between scenarios · ←/→ keys also work</div></header>
+<details class="finder"><summary>Find a scenario by question</summary>
+<div class="chipgrp">Common questions</div><div class="chips" id="qchips"></div>
+<div class="chipgrp">Competency area</div><div class="chips" id="achips"></div>
+<div class="chipgrp">Category</div><div class="chips" id="cchips"></div>
+</details>
+<nav class="tabs" id="tabs" role="tablist"></nav>
+<main class="panel" id="panel" role="tabpanel"></main>
+<div class="nav"><button id="prev">← Previous</button><button id="next">Next →</button></div>
+</div>
+<script>
+var S=[
+{t:"TV cards · 21% uplift",title:"Turning TV product-card research into a 21% uplift",
+areas:["Evaluating Problems","Driving Success","Creating Innovation","Processing Details"],cats:["Problem solving","Teamwork"],
+open:"I turned UXR findings into a controlled CRO experiment that isolated the winning design element and delivered a reported 21% uplift.",
+s:["TV add-on cards caused heavy scrolling and poor comparison","Previous card changes had struggled to improve performance"],
+k:["Co-own a clearer redesign","Create a controlled experiment from user-research findings that showed which element caused change"],
+a:["Focused TV card hierarchy and clarity using UXR evidence","Partnered with CRO on two clean variants: cards only, then cards plus filter chips","Excluded the carousel to avoid a third variable, so results wouldn’t be convoluted","Finalised states and prototype with a clarified setup and kept the broadband follow-up test separate"],
+r:["Winning experience reported a 21% uplift","Filter chips reached the 95% statistical significance threshold; cards only reached 90%","Evidence isolated filter chips as the decisive change, giving a defensible commercial result and a validated pattern for non-TV and broadband testing","My contribution: turning UXR evidence into controlled variants and protecting the test from extra variables"]},
+{t:"Billing IA",title:"Building the billing IA that did not exist",
+areas:["Structuring Tasks","Evaluating Problems","Communicating Information","Processing Details"],cats:["Problem solving","Leadership","Teamwork"],
+open:"I created a shared billing IA and logic map that aligned four specialist groups and became the foundation for the multi-line experience.",
+s:["O2 billing involved multiple billing accounts, finance agreements, companion devices and legacy plans","No single reference explained how these relationships worked together","Design decisions were being made inconsistently"],
+k:["Create a multi-line account structure that separated account-level information from line-level actions","Establish enough system understanding for design to be credible"],
+a:["Brought together billing, backend engineering, retail and eCare","Ran a discovery around customer questions, failure points and constraints","Consolidated findings into one IA and logic map","Validated the proposed structure with engineering before the homepage redesign"],
+r:["Created one shared cross-team reference where none existed","Enabled the multi-line homepage and wider reuse beyond the original workstream","Removed unnecessary account re-selection from tariff-change and bolt-on journeys","Reduced inconsistent interpretation"]},
+{t:"Figma Variables",title:"Removing design system friction with Figma Variables",
+areas:["Creating Innovation","Driving Success","Processing Details","Evaluating Problems"],cats:["Leadership","Problem solving","Teamwork"],
+open:"I helped replace a slow, plugin-dependent theming process with a measured Figma Variables workflow that was about 93% faster.",
+s:["Teams recreated similar components across brands","Token Studio was slow, unfamiliar and increased design-to-engineering drift"],
+k:["Help lead the audit and rebuild of a scalable cross-brand system for the app","Reduce plugin dependency and prove the workflow improvement"],
+a:["Audited repeated patterns and inconsistent states","Rebuilt from atomic foundations using Figma Variables","Worked with engineering so component and variable logic matched implementation","Measured old and new workflows rather than relying on narrative feedback"],
+r:["Theme application fell from 54+ seconds to under 4 seconds: about 93% faster","Re-theming an already themed frame fell from about 7 seconds to no additional time","Across 7,609 inserts, estimated saving was 5–6 hours per designer per year","Beyond speed: reduced drift and made consistent cross-brand delivery easier to scale"]},
+{t:"Movers",title:"Building and owning evidence to a quantified decision for the Movers journey",
+areas:["Evaluating Problems","Structuring Tasks","Creating Innovation","Driving Success"],cats:["Problem solving","Handling failure / adaptability","Leadership"],
+open:"While delivering across two squads, I owned and turned preference evidence into a combined notification direction and a clearer CRO hypothesis.",
+s:["Inherited Movers documentation that was fragmented and out of date","Customers described the long homepage as static; drop-offs were unclear in Contentsquare and Tableau analysis"],
+k:["Manage two squads, rebuild the source of truth and validate new designs without drawing customers out of the move flow","Apply motion skills only where they supported the task"],
+a:["Rebuilt the journey reference","Reprioritised hierarchy and reduced information shown at once, based on UXR evidence, Contentsquare and Tableau analysis","Owned three-variant unmoderated research end to end: question, build, run, analysis and recommendation","Explored lightweight Lottie/JSON motion that did not compete with move completion, responding to feedback about the static feel"],
+r:["Decision combined A’s visibility with B’s communication rather than choosing by opinion","Confusion about journey interruption shaped post-move upgrade copy and the next CRO hypothesis","Maintained delivery across both squads and created a development/QA reference"]},
+{t:"DMCCA",title:"Turning compliance into an aligned end-to-end experience (DMCCA)",
+areas:["Processing Details","Communicating Information","Evaluating Problems","Structuring Tasks"],cats:["Teamwork","Leadership","Problem solving"],
+open:"I used the DMCCA regulatory change as an opportunity to align teams around an evidence-led approach, meeting legal requirements while improving consistency across the wider customer journey.",
+s:["DMCCA introduced new requirements around contract terms and cancellation rights","Different pillars were approaching the changes differently, risking an inconsistent experience","Additional mandatory copy also created a potential cognitive-load and conversion risk"],
+k:["Meet DMCCA requirements without compromising usability and commercial performance","Align the approach across Acq and In-Life","Improve consistency across the basket, review and email confirmation journey"],
+a:["Collaborated across pillars to align existing designs, legal requirements and CRO learnings","Used the Acq neutral CRO result to help de-risk the In-Life direction","Challenged areas where legal content could overwhelm customers and identified opportunities for testing","Redesigned basket, review and email confirmation as one connected journey: currently in UXR, awaiting results and recommendation","Created a single source of truth across XSUS and ILS, supporting BAU and CRO iterations"],
+r:["Turned a mandatory compliance change into a broader end-to-end UX improvement","Built on evidence that the comparable Acq treatment had a neutral conversion result and progressed to 100% traffic","Improved alignment between Acq and In-Life, creating greater journey consistency","Established a reusable DMCCA approach for future BAU and CRO work"]},
+{t:"Black Friday",title:"Creating a scalable cross-team campaign experience",
+areas:["Structuring Tasks","Communicating Information","Driving Success","Processing Details"],cats:["Teamwork","Leadership","Handling failure / adaptability"],
+open:"I helped establish the design foundations for Black Friday across In-Life, aligning asset placements and specifications so Trading could create consistent campaign creative that worked across our digital journeys. The campaign is now live across Acq and In-Life with an aligned design approach.",
+s:["Black Friday needed coordinated creative across multiple In-Life journeys, while Product Design was moving to a lighter-touch campaign model with Trading owning more creative production","Teams needed clarity on where campaign assets appeared, their dimensions and how they behaved across platforms before Trading could produce them"],
+k:["Define the asset placements and specifications Trading needed to create assets","Align XSUS, ILS and other product teams around a consistent campaign approach","Ensure creative worked within existing journeys while reducing duplicated design effort across squads"],
+a:["Created a central Figma asset-placement and specification file, mapping previous BF assets, dimensions and placements as a reference for the 2026 campaign","Coordinated designers across platforms to populate their placements and provide direct Figma references, giving Trading clear context","Defined requirements for XSUS and ILS with the Trading designer, confirming one reusable creative asset could support both journeys","Worked across Design, Product and Development to establish delivery timings and the sprint lead time needed before launch","Took part in the end-to-end design walkthrough and retro to identify improvements for future campaigns"],
+r:["Helped create a repeatable asset-placement framework so Trading and Product knew exactly what creative was needed and where","Supported a more scalable model: Trading owns core creative while Product Design protects the experience within journeys, reducing squad effort recreating assets","Surfaced improvements for future campaigns, particularly earlier Product, Brand and Legal involvement"]},
+{t:"Portfolio · AI",title:"Building my portfolio using AI, VS Code and GitHub",
+areas:["Creating Innovation","Learning and Developing","Evaluating Problems","Driving Success"],cats:["Handling failure / adaptability","Problem solving"],
+open:"I taught myself how to use AI, VS Code and GitHub to build and publish my portfolio from scratch, expanding my skills beyond traditional design tools.",
+s:["I wanted to create a portfolio from scratch rather than rely on a restrictive template","I had limited experience with coding, VS Code and GitHub repositories"],
+k:["Learn the tools needed to turn my portfolio design into a working website","Use AI to support development while retaining control of the design and content"],
+a:["Used AI to understand unfamiliar code, troubleshoot issues and learn how components worked","Built and tested the site in VS Code and managed changes through GitHub repositories","Broke technical problems into smaller tasks and checked the output rather than accepting AI-generated code without review","Applied my UX skills to the structure, case-study hierarchy, navigation and responsive behaviour"],
+r:["Built and published a working portfolio independently","Developed confidence working beyond my core design skill set","Created a repeatable AI-assisted workflow for learning, problem solving and implementation"],
+nudge:"Result is mostly qualitative. Add one hard number if you have it: time from start to live, case studies or pages published, responsive breakpoints tested, load or accessibility score, views or enquiries since launch, or number of issues you debugged and fixed."}
+];
+var Q=[
+{n:"A project I’m proud of",m:[0,1,2]},
+{n:"Working with researchers, devs & designers",m:[1,4,5]},
+{n:"A new idea that was acted on",m:[0,2,3,6]},
+{n:"Learning something new / adapting",m:[6,3]},
+{n:"Sorting through lots of information",m:[0,1,3]},
+{n:"Explaining something complex",m:[1,4,5]},
+{n:"Challenging someone’s opinion",m:[4,3]},
+{n:"Working quickly with focus on detail",m:[4,2,5]},
+{n:"Pushing hard to reach a goal",m:[2,0,3]},
+{n:"Taking on organising something",m:[5,1,3]}
+];
+var cur=0,filter=null;
+var $=function(i){return document.getElementById(i)};
+function li(a){return a.map(function(x){return "<li>"+x+"</li>"}).join("")}
+function sec(c,h,a){return '<div class="sec '+c+'"><h3>'+h+'</h3><ul>'+li(a)+'</ul></div>'}
+function matches(i){if(!filter)return false;if(filter.type==="q")return Q[filter.v].m.indexOf(i)>-1;if(filter.type==="a")return S[i].areas.indexOf(filter.v)>-1;return S[i].cats.indexOf(filter.v)>-1}
+function renderTabs(){
+$("tabs").innerHTML=S.map(function(x,i){var c="tab"+(i===cur?" act":"")+(filter?(matches(i)?" match":" dim"):"");
+return '<button class="'+c+'" role="tab" data-i="'+i+'">'+(i+1)+". "+x.t+"</button>"}).join("");
+}
+function render(){
+var x=S[cur];
+$("panel").innerHTML='<div class="tags">'+x.areas.map(function(a){return '<span class="tag">'+a+'</span>'}).join("")+x.cats.map(function(a){return '<span class="tag cat">'+a+'</span>'}).join("")+'</div><h2>'+x.title+'</h2><div class="open"><small>Opening line</small>'+x.open+'</div>'+sec("","Situation",x.s)+sec("","Task",x.k)+sec("","Action",x.a)+sec("res","Result",x.r)+(x.nudge?'<div class="nudge"><b>Strengthen the result:</b> '+x.nudge+'</div>':'')+'<div class="rem">Say it: what <b>I</b> did, the outcome, and why it mattered.</div>';
+$("prev").disabled=cur===0;$("next").disabled=cur===S.length-1;
+renderTabs();
+var a=document.querySelector(".tab.act");if(a&&a.scrollIntoView)a.scrollIntoView({inline:"center",block:"nearest"});
+window.scrollTo(0,0);
+}
+function go(i){if(i<0||i>=S.length)return;cur=i;try{history.replaceState(null,"","#s"+(i+1))}catch(e){}render()}
+function mk(el,items,type){
+$(el).innerHTML=items.map(function(t,i){return '<button class="chip" data-t="'+type+'" data-v="'+(type==="q"?i:t)+'">'+(type==="q"?t.n:t)+'</button>'}).join("");
+}
+var areas=[],cats=[];S.forEach(function(x){x.areas.forEach(function(a){if(areas.indexOf(a)<0)areas.push(a)});x.cats.forEach(function(a){if(cats.indexOf(a)<0)cats.push(a)})});
+mk("qchips",Q,"q");mk("achips",areas,"a");mk("cchips",cats,"c");
+document.querySelector(".finder").addEventListener("click",function(e){
+var b=e.target.closest(".chip");if(!b)return;
+var t=b.getAttribute("data-t"),v=b.getAttribute("data-v");
+if(t==="q")v=parseInt(v,10);
+var same=filter&&filter.type===t&&filter.v===v;
+document.querySelectorAll(".chip").forEach(function(c){c.classList.remove("on")});
+if(same){filter=null}else{filter={type:t,v:v};b.classList.add("on");
+var first=t==="q"?Q[v].m[0]:S.findIndex(function(_,i){return matches(i)});if(first>-1)cur=first}
+render();
+});
+$("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(b)go(parseInt(b.getAttribute("data-i"),10))});
+$("prev").onclick=function(){go(cur-1)};$("next").onclick=function(){go(cur+1)};
+document.addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+var h=parseInt((location.hash||"").replace("#s",""),10);if(h>=1&&h<=S.length)cur=h-1;
+render();
+</script></body></html>
