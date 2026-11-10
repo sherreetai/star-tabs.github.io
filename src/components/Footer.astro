@@ -1,0 +1,20 @@
+---
+import { EMAIL, LINKEDIN } from '../site';
+---
+
+<footer>
+  <div class="border-t border-line">
+    <div class="mx-auto flex max-w-[1088px] items-start justify-between gap-8 px-6 py-10 md:py-14" data-reveal>
+      <a href="/" aria-label="Home" class="block h-10 w-10">
+        <img src="/images/about/SR-logo.svg" alt="" class="h-full w-full" />
+      </a>
+      <div>
+        <h2 class="mb-4 text-lg font-medium">Reach out</h2>
+        <ul class="space-y-1 text-sm">
+          <li><a href={EMAIL} class="underline underline-offset-4 hover:text-accent">Email</a></li>
+          <li><a href={LINKEDIN} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-accent">Linkedin</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

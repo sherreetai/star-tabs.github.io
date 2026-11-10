@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens. Change a value here and it updates across the site.
+   Use them in classes, e.g. text-accent, border-line, text-muted.
+   ------------------------------------------------------------------ */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0F0E27;
+  --color-accent: #4542D1;
+  --color-muted: #6b6b6b;
+  --color-line: #dedddc;
+  --color-placeholder: #dedddc;
+  --color-chip: #e8e7e5;
+  --color-background: #ffffff;
+}
+
+.type-display,
+.type-page-title,
+.type-section-title,
+.type-section-title-prominent,
+.type-card-title,
+.type-eyebrow,
+.type-body,
+.type-body-large {
+  font-family: var(--font-sans);
+}
+
+.type-display {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.type-page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.type-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.375;
+  letter-spacing: -0.025em;
+}
+
+.type-section-title-prominent {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.type-card-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+
+.type-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.type-body {
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.type-body-large {
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+
+@media (min-width: 48rem) {
+  .type-display {
+    font-size: 3.25rem;
+  }
+
+  .type-page-title {
+    font-size: 3.5rem;
+  }
+
+  .type-section-title-prominent {
+    font-size: 2.25rem;
+  }
+}
+
+html {
+  color: var(--color-ink);
+  background: var(--color-background);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.dark {
+  --color-ink: #D8D6EA;
+  --color-accent: #B4B1FF;
+  --color-muted: #C4C3D0;
+  --color-line: #4B4A67;
+  --color-placeholder: #282741;
+  --color-chip: #282741;
+  --color-background: #0F0E27;
+  color-scheme: dark;
+}
+
+body {
+  overflow-x: clip;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.dark .site-logo {
+  filter: brightness(0) invert(1);
+}
+
+.theme-icon-light {
+  display: none;
+}
+
+.dark .theme-icon-dark {
+  display: none;
+}
+
+.dark .theme-icon-light {
+  display: block;
+}
+
+.action-primary {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-background);
+}
+
+.action-primary:hover {
+  background-color: var(--color-background);
+  color: var(--color-ink);
+}
+
+.action-secondary {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.action-secondary:hover {
+  background-color: var(--color-ink);
+  color: var(--color-background);
+}
+
+/* ------------------------------------------------------------------
+   Pop-in on scroll. Anything with data-reveal rises in as one group
+   when it scrolls into view. Case study sections appear as one group.
+   Tweak the distance / timing here.
+   ------------------------------------------------------------------ */
+.js [data-reveal],
+.js .case-body > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js [data-reveal].is-visible,
+.js .case-body > .is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js .case-body > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

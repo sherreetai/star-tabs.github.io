@@ -1,0 +1,20 @@
+---
+// The grid of project cards, shown on both Home and Work.
+// It lists every case study in src/content/work/, sorted by `order`.
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+const projects = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<div class="mx-auto grid max-w-[1088px] gap-x-12 gap-y-12 px-6 md:grid-cols-2">
+  {projects.map((project) => (
+    <ProjectCard
+      href={`/work/${project.id}/`}
+      title={project.data.cardTitle ?? project.data.title}
+      tag={project.data.tag}
+      coverImage={project.data.coverImage}
+      coverPosition={project.data.coverPosition}
+    />
+  ))}
+</div>

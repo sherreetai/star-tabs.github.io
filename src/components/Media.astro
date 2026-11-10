@@ -1,0 +1,40 @@
+---
+// An image, GIF or video. Videos (.mp4 / .webm / .mov) autoplay, muted, on a loop.
+//
+// layout:
+//   "plain" (default) – centred, content width
+//   "panel"           – sits on a rounded light-grey box
+//   "band"            – full-width light-grey strip (e.g. big device mockups)
+//   "bleed"           – edge to edge, no padding (used for the hero banner)
+interface Props {
+  src: string;
+  alt?: string;
+  layout?: 'plain' | 'panel' | 'band' | 'bleed';
+}
+const { src, alt = '', layout = 'plain' } = Astro.props;
+const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+
+const outer = {
+  plain: 'mx-auto my-16 max-w-[928px] px-6',
+  panel: 'mx-auto my-16 max-w-[928px] px-6',
+  band: 'my-24 bg-placeholder px-6 py-16',
+  bleed: '',
+}[layout];
+
+const inner = {
+  plain: '',
+  panel: 'rounded-2xl bg-placeholder p-6 md:p-12',
+  band: 'mx-auto max-w-[1040px]',
+  bleed: '',
+}[layout];
+---
+
+<figure class={outer}>
+  <div class={inner}>
+    {isVideo ? (
+      <video src={src} autoplay muted loop playsinline class="block h-auto w-full" aria-label={alt} />
+    ) : (
+      <img src={src} alt={alt} loading={layout === 'bleed' ? 'eager' : 'lazy'} class="block h-auto w-full" />
+    )}
+  </div>
+</figure>

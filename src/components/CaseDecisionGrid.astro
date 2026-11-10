@@ -1,0 +1,17 @@
+---
+interface Props {
+  bottomDivider?: boolean;
+  compact?: boolean;
+}
+
+const { bottomDivider = false, compact = false } = Astro.props;
+const gridClass = [
+  'mx-auto grid max-w-[1088px] grid-cols-1 px-6 md:grid-cols-2',
+  bottomDivider ? "relative before:absolute before:inset-x-6 before:bottom-0 before:border-b before:border-line before:content-['']" : '',
+  !bottomDivider && !compact ? 'py-14 md:py-20' : '',
+].filter(Boolean).join(' ');
+---
+
+<div class={gridClass}>
+  <slot />
+</div>

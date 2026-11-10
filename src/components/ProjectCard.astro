@@ -1,0 +1,26 @@
+---
+// One project card: image placeholder, title and tag. Used by ProjectGrid.
+interface Props {
+  href: string;
+  title: string;
+  tag: string;
+  coverImage: string;
+  coverPosition?: string;
+}
+const { href, title, tag, coverImage, coverPosition = 'center' } = Astro.props;
+const coverIsVideo = /\.(mp4|webm|mov)$/i.test(coverImage);
+---
+
+<a href={href} class="group block" data-reveal>
+  <div class="aspect-[4/3] overflow-hidden rounded-xl bg-placeholder">
+    {coverIsVideo ? (
+      <video src={coverImage} autoplay muted loop playsinline aria-hidden="true" style={`object-position: ${coverPosition}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"></video>
+    ) : (
+      <img src={coverImage} alt="" loading="lazy" style={`object-position: ${coverPosition}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+    )}
+  </div>
+  <div class="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 class="type-card-title">{title}</h3>
+    <span class="shrink-0 text-sm">{tag}</span>
+  </div>
+</a>

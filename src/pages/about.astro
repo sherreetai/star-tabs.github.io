@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Edit the experience list here. Each line is one row.
+const experience = [
+  { company: 'Virgin Media O2', role: 'UX/UI Designer', dates: 'Feb 2023 - Present' },
+  { company: 'Mercer', role: 'Visual Designer', dates: 'Nov 2021 - Jan 2023' },
+  { company: 'ao.com', role: 'Creative Designer', dates: 'Sep 2019 - Oct 2021' },
+];
+
+const snippets = Array.from({ length: 6 }, (_, index) => `/images/about/snippet-${index + 1}.jpg`);
+
+// The short line before each section heading.
+const dash = 'mr-2 inline-block w-12 border-b-4 border-ink align-baseline';
+---
+
+<BaseLayout title="About">
+  <div class="mx-auto max-w-[1088px] px-6 pt-10">
+    <!-- Background -->
+    <section class="mt-16 grid gap-8 md:grid-cols-[1fr_310px] md:grid-rows-[auto_1fr] md:gap-x-20" data-reveal>
+      <h2 class="type-section-title-prominent md:col-start-1 md:row-start-1"><span class={dash}></span>Background</h2>
+      <img src="/images/about/portrait.jpg" alt="Sher" class="aspect-square w-full max-w-[310px] justify-self-start rounded-full object-cover md:col-start-2 md:row-span-2 md:row-start-1 md:justify-self-center" />
+      <div class="type-body-large max-w-[640px] md:col-start-1 md:row-start-2">
+        <div class="space-y-7">
+          <p>I’m Sher, a product designer at Virgin Media O2. I focus on simplifying complex digital systems and shaping experiences so they feel clear and intuitive.</p>
+          <p>Before moving into product, I worked across visual and creative roles at Mercer, ao.com and Practical Publishing. That background gave me a strong sense of structure, but over time I found myself more drawn to shaping the logic behind the interface.</p>
+          <p>I care about making complex products feel simple and working within system constraints to design experiences that actually make sense for the people that use them every day.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="mt-32" data-reveal>
+      <h2 class="type-section-title-prominent mb-6"><span class={dash}></span>Experience</h2>
+      <ul>
+        {experience.map((job) => (
+          <li class="flex flex-col gap-1 border-b border-line py-5 md:flex-row md:items-center md:gap-8">
+            <span class="type-section-title flex-1">{job.company}</span>
+            <span class="text-sm font-semibold">{job.role}</span>
+            <span class="text-sm whitespace-nowrap text-muted">{job.dates}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Out of office -->
+    <section class="mt-24 space-y-10 pb-24" data-reveal>
+      <div>
+        <h2 class="type-section-title-prominent mb-6"><span class={dash}></span>Out of office</h2>
+        <div class="type-body-large space-y-7">
+          <p>I’m usually snowboarding or climbing (reading a route before committing), making terrariums (working within tight constraints), with some yoga (slow down) and a lot of eating in between.</p>
+          <p>I’ll happily plan a trip around one restaurant because I can’t help noticing what makes a place feel well looked after.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {snippets.map((src) => <img src={src} alt="" loading="lazy" class="aspect-square w-full rounded-xl object-cover" />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

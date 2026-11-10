@@ -1,0 +1,19 @@
+---
+// The "Next project →" link at the end of each case study.
+interface Props {
+  href: string;
+  title: string;
+  logo: string;
+}
+const { href, title, logo } = Astro.props;
+---
+
+<section class="border-t border-line px-6 py-12">
+  <a href={href} class="group mx-auto flex w-fit items-center gap-3" data-reveal>
+    <img src={logo} alt="" class="h-9 w-9 object-contain" />
+    <span>
+      <span class="block text-sm font-bold group-hover:text-accent">Next case study →</span>
+      <span class="block text-xs">{title}</span>
+    </span>
+  </a>
+</section>
